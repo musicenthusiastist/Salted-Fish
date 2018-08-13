@@ -6,6 +6,8 @@ public class World{
   protected Location[][] locations;
   protected Location     home;
   protected List<Player> players; // all players in the world
+  protected List<String> realTimeInformation = new ArrayList<String>();  // record the real time events
+  
   
   public World(){
     locations = new Location[3][3];
@@ -66,5 +68,38 @@ public class World{
     return true;
   }
   
+  public void updateNews(String newInfo) {
+	  if(this.realTimeInformation.size()>4) {
+		  this.realTimeInformation.remove(0);
+	  }
+	  this.realTimeInformation.add(newInfo);
+  }
   
+  public String getRealTimeInformation() {
+	  String text = "<html>Real-time Information:\n";
+	  for(int i = 0;i< this.realTimeInformation.size(); i++) {
+		  text += this.realTimeInformation.get(i) + "<br>";
+	  }
+	  text += "</html>";
+	  return text;
+  }
+  
+  public String getPlayersInformation() {
+	  int badPeaches = 0;
+	  String text = "<html>Player Information:<br><br>";
+	  for(int i = 0;i < this.getPlayers().size(); i++) {
+		  text += this.getPlayers().get(i).toString() + "    " +
+	              this.getPlayers().get(i).getLocation().getPosition().toString() +
+	              "  health: "+this.getPlayers().get(i).getHealth()+"<br>";
+		  for(int j = 0; j <this.getPlayers().get(i).getPeaches().size(); j++) {
+			  if (this.getPlayers().get(i).getPeaches().get(j).isBad()) {
+				  badPeaches ++;
+			  }
+		  }
+		  text += "Good peaches: "+(this.getPlayers().get(i).getPeaches().size()-badPeaches)+
+				  "  Bad peaches: "+badPeaches+"<br><br>";
+	  }
+	  text += "</html>";
+	  return text;
+  }
 }

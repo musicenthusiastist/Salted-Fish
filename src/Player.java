@@ -45,12 +45,15 @@ public class Player{
  /** Getter for a player's peach */
  public Peach  getPeach(){ return peaches == null ? null : peaches.remove(0); }  
  
+ /** Getter for a player's all peaches */
+ public List<Peach> getPeaches(){return this.peaches;}
+ 
  /** Getter for a player's health */
  public int          getHealth(){ return health; }
  
  
  /** This is the logic of the player. 
-   * It defines what they should do when given a chance to do something
+   * It defines what they should do when given a chance to do somerthing
    */
  public void play(){
    if( health < 10 ){
@@ -119,6 +122,8 @@ public class Player{
    }else{
      return false;
    }
+   
+
  }
 
  
